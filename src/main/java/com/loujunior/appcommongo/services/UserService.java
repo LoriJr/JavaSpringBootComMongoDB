@@ -34,8 +34,8 @@ public class UserService {
     }
     //TO-DO
     public User update(User obj){
-        User newObj = new User();
-        repository.findById(obj.getId());
+        User newObj = repository.findById(obj.getId())
+                        .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
         updateData(newObj, obj);
         return repository.save(newObj);
     }
