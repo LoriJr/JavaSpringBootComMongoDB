@@ -1,26 +1,35 @@
 package com.loujunior.appcommongo.resources;
 
 import com.loujunior.appcommongo.domain.User;
+import com.loujunior.appcommongo.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 public class UserResource {
 
+    @Autowired
+    private UserService service;
+
     @GetMapping
     public ResponseEntity<List<User>> findAll(){
-        User user1 = new User("123", "Junior", "junior@gmail.com");
-        User user2 = new User("456", "Lais", "lais@gmail.com");
-        List<User> list = new ArrayList<>();
-        list.addAll(Arrays.asList(user1, user2));
-
+        List<User> list = service.find();
         return ResponseEntity.ok().body(list);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert() {
+        User obj = new User("456", "lou", "lou@gmail.com");
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }
