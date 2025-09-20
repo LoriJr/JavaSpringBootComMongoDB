@@ -1,6 +1,7 @@
 package com.loujunior.appcommongo.resources;
 
 import com.loujunior.appcommongo.domain.User;
+import com.loujunior.appcommongo.dto.UserDTO;
 import com.loujunior.appcommongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,10 @@ public class UserResource {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> find(){
         List<User> list = service.find();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDTO = list.stream().map(UserDTO::new).toList();
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @PostMapping
