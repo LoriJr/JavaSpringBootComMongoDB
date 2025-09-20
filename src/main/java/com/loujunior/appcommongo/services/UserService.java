@@ -32,4 +32,8 @@ public class UserService {
         Optional<User> user = repository.findById(id);
            return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
+
+    public void delete(String id){
+        repository.deleteById(id);
+    }
 }
