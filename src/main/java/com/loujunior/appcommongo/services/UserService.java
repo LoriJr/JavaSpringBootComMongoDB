@@ -32,7 +32,7 @@ public class UserService {
         Optional<User> user = repository.findById(id);
            return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
-    //TO-DO
+
     public User update(User obj){
         User newObj = repository.findById(obj.getId())
                         .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
