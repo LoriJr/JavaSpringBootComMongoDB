@@ -1,9 +1,9 @@
 package com.loujunior.appcommongo.resources;
 
+import com.loujunior.appcommongo.domain.Post;
 import com.loujunior.appcommongo.domain.User;
 import com.loujunior.appcommongo.dto.UserDTO;
 import com.loujunior.appcommongo.services.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +46,11 @@ public class UserResource {
         obj.setId(id);
         service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        List<Post> list = service.findPostsByUserId(id);
+        return ResponseEntity.ok().body(list);
     }
 }

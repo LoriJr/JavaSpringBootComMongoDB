@@ -15,4 +15,6 @@ public class AuthorDTO {
         id = obj.getId();
         name = obj.getName();
     }
+    public AuthorDTO(){
+    }
 }

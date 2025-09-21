@@ -1,5 +1,6 @@
 package com.loujunior.appcommongo.services;
 
+import com.loujunior.appcommongo.domain.Post;
 import com.loujunior.appcommongo.domain.User;
 import com.loujunior.appcommongo.dto.UserDTO;
 import com.loujunior.appcommongo.repository.UserRepository;
@@ -43,5 +44,13 @@ public class UserService {
     private void updateData(User newObj, User obj){
         newObj.setName(obj.getName());
         newObj.setEmail(obj.getEmail());
+    }
+
+    public List<Post> findPostsByUserId(String userId) {
+        User user = findById(userId);
+        // A linha abaixo FORÇA o carregamento da lista de posts
+        // enquanto a sessão com o banco ainda está ativa.
+        user.getPosts().size(); // Ou qualquer outra operação na lista
+        return user.getPosts();
     }
 }
