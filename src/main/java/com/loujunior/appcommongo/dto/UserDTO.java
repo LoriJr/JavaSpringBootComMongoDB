@@ -2,7 +2,6 @@ package com.loujunior.appcommongo.dto;
 
 
 import com.loujunior.appcommongo.domain.User;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
