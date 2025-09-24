@@ -3,13 +3,11 @@ package com.loujunior.appcommongo.resources;
 import com.loujunior.appcommongo.domain.Post;
 import com.loujunior.appcommongo.domain.User;
 import com.loujunior.appcommongo.dto.UserDTO;
+import com.loujunior.appcommongo.resources.util.URL;
 import com.loujunior.appcommongo.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,4 +30,13 @@ public class PostResource {
         List<Post> list = service.find();
         return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping("/titleseach")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value="text", defaultValue = "") String text){
+        text = URL.decodeParam(text);
+        List<Post> list = service.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
+
+
 }

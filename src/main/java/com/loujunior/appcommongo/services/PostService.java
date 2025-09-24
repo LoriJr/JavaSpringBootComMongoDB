@@ -5,6 +5,7 @@ import com.loujunior.appcommongo.domain.User;
 import com.loujunior.appcommongo.repository.PostRepository;
 import com.loujunior.appcommongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,5 +24,9 @@ public class PostService {
 
     public List<Post> find(){
         return repository.findAll();
+    }
+
+    public List<Post> findByTitle(String text){
+        return repository.findByTitleContainingIgnoreCase(text);
     }
 }

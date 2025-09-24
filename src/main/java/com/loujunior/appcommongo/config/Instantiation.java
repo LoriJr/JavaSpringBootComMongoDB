@@ -3,6 +3,7 @@ package com.loujunior.appcommongo.config;
 import com.loujunior.appcommongo.domain.Post;
 import com.loujunior.appcommongo.domain.User;
 import com.loujunior.appcommongo.dto.AuthorDTO;
+import com.loujunior.appcommongo.dto.CommentDTO;
 import com.loujunior.appcommongo.repository.PostRepository;
 import com.loujunior.appcommongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,12 @@ public class Instantiation implements CommandLineRunner {
         Post p1 = new Post(null, sdf.parse("21/03/2018"), "Indo de viagem", "Estou saindo para viajar hoje", new AuthorDTO(maria));
         Post p2 = new Post(null, sdf.parse("10/08/2018"), "Bom dia", "Acordei feliz hoje", new AuthorDTO(maria));
 
+        CommentDTO c1 = new CommentDTO("Boa viagem", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveite", sdf.parse("21/02/2018"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Bom dia", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+
+        p1.getComments().addAll(Arrays.asList(c1, c2));
+        p2.getComments().addAll(Arrays.asList(c3));
 
         postRepository.insert(Arrays.asList(p1, p2));
         maria.getPosts().addAll(Arrays.asList(p1, p2));
